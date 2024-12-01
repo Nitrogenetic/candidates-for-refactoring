@@ -1,3 +1,12 @@
 processVerificationRequest();
 makeUpdateRequest();
-processDeletion();
+processDeletionRequest();
+
+// Было плохо:
+// 1) Если методы лежат в одной области видимости,
+// то имя processDeletion является непоследовательным,
+// тк, если судить по именам 2 других функций, они работают с Request.
+
+/** Стало лучше:
+ * 1) Имя функции изменено согласно выбранной схеме работы (работа с Request). | 3
+ */

@@ -1,3 +1,10 @@
-const calculate = (number: number) => {
+const getSquare = (number: number) => {
   return number * number;
 };
+
+// Было плохо:
+// 1) Из названия функции не ясно, что именно вычисляется.
+
+/** Стало лучше:
+ * 1) Было подобрано более точное название функции.   | 1
+ */

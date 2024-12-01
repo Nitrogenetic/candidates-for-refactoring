@@ -8,12 +8,24 @@ type TWarning = {
   type: WarningType;
 };
 
-const Warning = (type: WarningType): TWarning => {
+const getWarning = (): TWarning => {
   return {
-    type,
+    type: WarningType.LEGACY_CODE_DEPENDENCY,
   };
 };
 
-const addError = (errors: TMutableList<TWarning>) => {
-  errors.push(Warning(WarningType.LEGACY_CODE_DEPENDENCY));
-};
+// Где-то на уровне объявления errors
+const warning = getWarning();
+errors.push(warning);
+
+// Было плохо:
+// 1) Имя функции "Warning" было не корректным. Непонятно, что именно она делает.
+// 2) Warning принимает и возвращает один и тот же параметр.
+// Нужно стараться передавать как можно меньше аргументов в методы для повышения читаемости кода.
+// 3) Массив errors является входным ппараметром, а мы его изменяем. Это не очень явное поведение.
+
+/** Стало лучше:
+ * 1) Было подобрано более точное имя функции (Название функции - глагол и описывает то, что она делает).  | 11
+ * 2) Использование enum было перемещено в getWarning для уменьшения количества передаваемых аргументов.   | 13
+ * 3) Лучше использовать errors.push на том уровне абстракции, где объявлен errors.                        | 19
+ */

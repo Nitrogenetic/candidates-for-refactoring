@@ -1,2 +1,9 @@
-if (!buffer.shouldNotCompact()) {
+if (buffer.shouldCompact()) {
 }
+
+// Было плохо:
+// 1) Отрицательных условий стоит избегать.
+
+/** Стало лучше:
+ * 1) Стоит использовать метод shouldCompact. | 1
+ */
