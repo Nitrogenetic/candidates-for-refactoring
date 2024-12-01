@@ -8,7 +8,16 @@ type TGatewayService = {
 };
 
 const auth = (payment: TPayment, gateway: TGatewayService) => {
-  const rcCode = gateway.sendAuth(payment);
-
-  payment.rcCode = rcCode;
+  return gateway.sendAuth(payment);
 };
+
+// Где-то на уровне абстракции payment.
+const rcCode = auth(payment, gateway);
+payment.rcCode = rcCode;
+
+// Было плохо:
+// 1) Функция auth изменяет входной параметр, чего делать не рекомендуется.
+
+/** Стало лучше:
+ * 1) Лучше обновлять rcCode на уровне абстракции payment.  | 16
+ */

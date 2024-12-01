@@ -1,1 +1,11 @@
-const newDate = date.add(5);
+const DAYS_LEFT_TO_WEEKEND = 5;
+const newDate = date.increaseDaysBy(DAYS_LEFT_TO_WEEKEND);
+
+// Было плохо:
+// 1) Магическое число 5.
+// 2) Не ясно что делает метод date.add.
+
+/** Стало лучше:
+ * 1) Добавлена константа, описывающая значение числа 5. | 1
+ * 2) Было подобрано более содержательное имя метода.    | 2
+ */

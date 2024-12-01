@@ -3,29 +3,44 @@ class MoogDiver {
   splines: List<Spline>;
 
   public dive(reason: string) {
-    this.saturateGradient();
+    const gradient = this.saturateGradient();
 
-    this.reticulateSplines();
+    const splines = this.reticulateSplines(gradient);
 
-    this.diveForMoog(reason);
-  }
-
-  private saturateGradient() {
-    this.gradient = // some logic
-  }
-
-  private reticulateSplines() {
-    // some logic
-    this.splines = this.gradient.getSplines();
-  }
-
-  private diveForMoog(reason: string) {
-    // some logic
-    
-    if(reason === 'ok'){
-      this.splines.doOk();
+    if (reason === 'ok') {
+      this.diveForOkMoog(splines);
     } else {
-      this.splines.doNotOk();
+      this.diveForNotOkMoog(splines);
     }
   }
+
+  private saturateGradient(): Gradient {
+    const gradient: Gradient; // some logic
+    return gradient;
+  }
+
+  private reticulateSplines(gradient: Gradient): List<Spline> {
+    // some logic
+    return gradient.getSplines();
+  }
+
+  private diveForOkMoog(splines: List<Spline>) {
+    // some logic
+    splines.doOk();
+  }
+
+  private diveForNotOkMoog(splines: List<Spline>) {
+    // some logic
+    splines.doNotOk();
+  }
 }
+
+// Было плохо:
+// 1) Порядок вызова методов в dive важен, а код не обеспечивает принудительной привязки,
+// из-за этого другой разработчик может вызвать метод отдельно от привязки.
+// 2) diveForMoog выполняет слишком много действий (//some logic и опциональный вызов методов).
+
+/** Стало лучше:
+ * 1) Реализована передача результата в аргументы другой функции для повышения связи.     | 8; 11; 13
+ * 2) Вместо передачи 2 аргументов, реализовано 2 метода, которые вызываются опционально. | 11, 13
+ */

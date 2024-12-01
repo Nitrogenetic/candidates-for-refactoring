@@ -1,14 +1,5 @@
 class SomeClass {
-
-  private neverUsedMethod() {
-      console.log("This function is called");
-  }
-
   public someMethod() {
-      if (false) {
-          doSomethingThatNeverHappens();
-      }
-
       try {
           this.doSomethingSafe();
       } catch (Exception e) {
@@ -20,3 +11,13 @@ class SomeClass {
      console.log('Safe operation')
   }
 }
+
+// Было плохо:
+// 1) Невызываемые и неиспользуемые функции должны быть удалены.
+// Система контроля версий позаботится о восстановлении, если необходимо.
+
+/** Стало лучше:
+ * 1) Удалены неиспользуемые функции.    | 0 (removed)
+ */
+
+
